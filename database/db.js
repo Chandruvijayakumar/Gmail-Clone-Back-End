@@ -1,7 +1,11 @@
+// database/db.js
 import mongoose from "mongoose";
+import dotenv from "dotenv"; // Import dotenv to load environment variables
+
+dotenv.config(); // Load the .env file
 
 const Connection = () => {
-  const DB_URI = `mongodb://chanv7540:ueid2eCEY1TVEUTb@ac-tmkjos8-shard-00-00.7tgfbru.mongodb.net:27017,ac-tmkjos8-shard-00-01.7tgfbru.mongodb.net:27017,ac-tmkjos8-shard-00-02.7tgfbru.mongodb.net:27017/?ssl=true&replicaSet=atlas-5qx1j9-shard-0&authSource=admin&retryWrites=true&w=majority&appName=Cluster0`;
+  const DB_URI = process.env.DB_URI; // Get the DB_URI from environment variables
 
   mongoose
     .connect(DB_URI)
