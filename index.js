@@ -1,15 +1,27 @@
 import express from "express";
-import routes from "./routes/route.js";
-import Connection from "./database/db.js";
+import dotenv from "dotenv";
 import cors from "cors";
+import routes from "./routes/route.js";
+import connectDB from "./database/db.js";
+
+dotenv.config();
+
 const app = express();
 
+// Middleware
+app.use(express.json());
 app.use(cors());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json({ extended: true }));
+
+// Connect to the database
+connectDB();
+
+// Use API routes
 app.use("/", routes);
-const PORT = "7000";
 
-Connection();
+// Set the port
+const PORT = process.env.PORT || 5000; // Use the PORT from .env or default to 5000
 
-app.listen(PORT, () => console.log(`Server is started on PORT ${PORT}`));
+// Start the server
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Server running on port ${PORT}`);
+});
